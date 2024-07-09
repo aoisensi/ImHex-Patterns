@@ -2,6 +2,14 @@ struct Vector {
     float x, y, z;
 };
 
+struct BodyPart {
+    s32 nameOffset;
+    char name[] @ $ - 4 + nameOffset;
+    s32 modelCount;
+    s32 _;
+    s32 modelOffset;
+};
+
 struct AnimDesc {
     s32 basePtr;
     s32 nameOffset;
@@ -126,6 +134,8 @@ struct MDL {
     Main main;
     AnimDesc animDescs[main.localAnimCount] @ main.localAnimOffset;
     SeqDesc seqDescs[main.localSeqCount] @ main.localSeqOffset;
+    BodyPart bodyParts[main.bodypart_count] @ main.bodypart_offset;
 };
 
 MDL mdl @ 0x00;
+
